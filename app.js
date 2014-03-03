@@ -5,6 +5,7 @@
 
 var express = require('express');
 var routes = require('./routes');
+var votter = require('./routes/votter');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
@@ -28,7 +29,14 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+//とりあえず、indexを移し替えてみた
+//by daigoro
+
+// app.get('/', routes.index);
+app.get('/', votter.top);
+app.get('/newform', votter.newform);
+app.post('/create', votter.create);
+app.get('/vote/:id', votter.vote);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

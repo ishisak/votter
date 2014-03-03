@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include html_header.ejs %>
+</head>
+<body>
+	<% include body_header.ejs %>
+	
+	<div class="jumbotron">
+		<h1>〇〇の投票ページです</h1>
+		<p class="lead">２０１４年０２月０３日作成<p/>
+			２月の大阪しめかい用の投票ページ<p/>
+		</p>
+	</div>
+
+	<div class="container">
+
+		<form class="" role="form" action="/create" method="post">
+
+			<h2>投票フォーム</h2>
+			<hr>
+			<div class="form-group row">
+				<label for="quest1" class="col-xs-8 col-sm-2 control-label">一番発表が良かった人</label>
+				<div class="col-sm-8">
+						<select class="form-control">
+							<option value="ans1">java</option>
+							<option value="ans2">ruby</option>
+							<option value="ans3">bash</option>
+						</select>
+				</div>
+			</div>
+			<hr>
+			<div class="form-group row">
+				<label for="quest2" class="col-xs-8 col-sm-2 control-label">今月一番頑張った人</label>
+				<div class="col-sm-8">
+						<select class="form-control">
+							<option value="ans1">java</option>
+							<option value="ans2">ruby</option>
+							<option value="ans3">bash</option>
+						</select>
+				</div>
+			</div>
+			<hr>
+			<div class="form-group row">
+				<label for="quest3" class="col-xs-8 col-sm-2 control-label">感想</label>
+				<div class="col-sm-8">
+						<textarea class="form-control" rows="3" placeholder="感想"></textarea>
+				</div>
+			</div>
+
+			<br>
+			<button type="submit" class="btn-lg btn-success">Submit</button>
+		</form>
+	</div>
+
+	<% include body_footer.ejs %>
+
+</body>
+</html>
