@@ -26,3 +26,10 @@ exports.vote = function(req, res){
   //TODO I don't know how to access DB lol
   res.render('vote', { title: 'votter - vote now' });
 };
+
+exports.mng = function(req, res){
+  //get data from table
+  var vote_form_id = req.params.id;
+  //TODO I don't know how to access DB lol
+  res.render('mng', { title: 'votter - manage and satisfictions' });
+};
