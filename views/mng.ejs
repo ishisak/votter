@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include html_header.ejs %>
+</head>
+<body>
+	<% include body_header.ejs %>
+	
+	<div class="jumbotron">
+		<h1>集計・管理ページ</h1>
+		<p class="lead">〇〇の投票ページです<p/>
+		</p>
+	</div>
+
+	<div class="container">
+
+		<section>
+
+			<h2>集計情報</h2>
+			<hr>
+			<div class="form-group row">
+				<label for="quest1" class="col-xs-8 col-sm-2 control-label">一番発表が良かった人</label>
+				<div class="col-sm-8">
+					<canvas id="quest1"></canvas>
+				</div>
+			</div>
+			<hr>
+			<div class="form-group row">
+				<label for="quest2" class="col-xs-8 col-sm-2 control-label">今月一番頑張った人</label>
+				<canvas id="quest2"></canvas>
+			</div>
+			<hr>
+			<div class="form-group row">
+				<label for="quest3" class="col-xs-8 col-sm-2 control-label">感想</label>
+				<div class="col-xs-8 col-sm-8 ">
+					<!-- ループさせる -->
+					<div class="row">
+						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
+						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
+					</div>
+					<hr>
+					<!-- ループさせる -->
+					<div class="row">
+						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
+						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
+						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
+						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
+						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
+						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
+					</div>
+					<hr>
+				</div>
+			</div>
+
+			<br>
+		</section>
+	</div>
+
+	<!--  lazy load -->
+
+	<script>
+	var quest1 = {
+
+		"config": {
+			"title": "今月一番頑張った人",
+			"subTitle": "集計結果",
+			"type": "bar",
+			"barWidth": 100,
+			"colorSet": 
+			["red","#FF9114","#3CB000"],
+			"bg":"#687478",
+		},
+
+		"data": [
+		["年度",1],
+		["java",3],
+		["ruby",10],
+		["go",2],
+		]
+	};
+	var quest2 = {
+
+		"config": {
+			"title": "一番発表が良かった人",
+			"subTitle": "集計結果",
+			"type": "bar",
+			"barWidth": 100,
+			"colorSet": 
+			["red","#FF9114","#3CB000"],
+			"bg":"#687478",
+		},
+
+		"data": [
+		["年度",1],
+		["java",3],
+		["ruby",10],
+		["go",2],
+		]
+	};
+	ccchart.init('quest1', quest1);
+	ccchart.init('quest2', quest2);
+	</script>
+
+	<% include body_footer.ejs %>
+
+</body>
+</html>
