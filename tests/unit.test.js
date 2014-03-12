@@ -38,8 +38,10 @@ describe('votter',function(){
         it('should return data from an event information',function(done){
             var votter = new Vote;
             var obj = {eventId:"531f222afcf1a12059f1fd41"};
+            var MongoDB  = require(lib + 'mongo');
+            var mongo = new MongoDB;
 
-            votter.findMongo('vote',obj, function(err, data){
+            mongo.findMongo('vote',obj, function(err, data){
                 data.toArray(function(err, results){
                     votter.sumUpCandidates(results, function(err, res){
                         assert.ok(res);
