@@ -44,11 +44,13 @@ describe('votter',function(){
             mongo.findMongo('vote',obj, function(err, data){
                 data.toArray(function(err, results){
                     votter.sumUpCandidates(results, function(err, res){
+                        console.log(res);
                         assert.ok(res);
+                        done();
+
                     });
 
                 });
-                   done();
             });
         });
     });
