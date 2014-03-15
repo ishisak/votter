@@ -26,11 +26,6 @@
 			</div>
 			<hr>
 			<div class="form-group row">
-				<label for="quest2" class="col-xs-8 col-sm-2 control-label">今月一番頑張った人</label>
-				<canvas id="quest2"></canvas>
-			</div>
-			<hr>
-			<div class="form-group row">
 				<label for="quest3" class="col-xs-8 col-sm-2 control-label">感想</label>
 				<div class="col-xs-8 col-sm-8 ">
 					<!-- ループさせる -->
@@ -94,27 +89,7 @@
 		["go",2],
 		]
 	};
-	var quest2 = {
-
-		"config": {
-			"title": "一番発表が良かった人",
-			"subTitle": "集計結果",
-			"type": "bar",
-			"barWidth": 100,
-			"colorSet": 
-			["red","#FF9114","#3CB000"],
-			"bg":"#687478",
-		},
-
-		"data": [
-		["年度",1],
-		["java",3],
-		["ruby",10],
-		["go",2],
-		]
-	};
 	ccchart.init('quest1', quest1);
-	ccchart.init('quest2', quest2);
 	</script>
 
 	<% include body_footer.ejs %>

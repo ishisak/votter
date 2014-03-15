@@ -18,22 +18,15 @@
 			<h2>管理用の情報を入力ください</h2>
 			<hr>
 			<div class="form-group row">
-				<label for="email" class="col-xs-8 col-sm-2 control-label">メールアドレス</label>
-				<div class="col-sm-8">
-					<input type="text" placeholder="Email" class="form-control ">
-				</div>
-			</div>
-			<br>
-			<div class="form-group row">
 				<label for="password" class="col-xs-8 col-sm-2 control-label">パスワード</label>
-				<div class="col-sm-8 ">
-					<input type="password" placeholder="Password" class="form-control">
+				<div class="col-sm-3">
+					<input type="password" name="password"  placeholder="Password" class="form-control">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="password2" class="col-xs-8 col-sm-2 control-label">もう一度</label>
-				<div class="col-sm-8">
-					<input type="password" placeholder="again" class="form-control">
+				<div class="col-sm-3">
+					<input type="password" name="password2" placeholder="again" class="form-control">
 				</div>
 			</div>
 
@@ -43,7 +36,7 @@
 			<div class="form-group row">
 				<label for="title" class="col-xs-8 col-sm-2 control-label">タイトル</label>
 				<div class="col-sm-8">
-					<input type="text" placeholder="ex. ３月のアンケート" class="form-control ">
+					<input type="text" name="title" placeholder="ex. ３月のアンケート" class="form-control ">
 				</div>
 			</div>
 			<br>
@@ -51,7 +44,7 @@
 			<div class="row"> 
 				<label for="explain" class="col-xs-8 col-sm-2 control-label">詳細</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" rows="2" placeholder="詳細"></textarea>
+					<textarea class="form-control" name="detail" rows="2" placeholder="詳細"></textarea>
 				</div>
 			</div>
 			<br>
@@ -60,7 +53,7 @@
 			<div class="form-group row">
 				<label for="contents" class="col-xs-8 col-sm-2 control-label">コンテンツ</label>
 				<div class="col-sm-8 ">
-					<textarea class="form-control" rows="3" placeholder="投票コンテンツの作成"></textarea>
+					<textarea class="form-control" name="contents" rows="3" placeholder="投票コンテンツの作成"></textarea>
 				</div>
 			</div>
 
@@ -68,27 +61,27 @@
 			<div class="bs-example"> 
 				<div class="row">
 					<p class="col-sm-2 ">
-						コンテンツの書き方　なんか、うまくコンテンツを作るフォームを考えないと
+						コンテンツの書き方
 					</p>
 					<p class="col-sm-4">
-						# make select box<br>					
-						> select,java,ruby,bash<br>
-						# make comment box<br>
-						> comment,感想
+						takashi<br>
+						takeshi<br>
+						takeya<br>
+						takaya<br>
 					</p>
 					<div class="col-sm-3">
 						<select class="form-control">
-							<option value="java">java</option>
-							<option value="ruby">ruby</option>
-							<option value="bash">bash</option>
+							<option value="1">takashi</option>
+							<option value="2">takeshi</option>
+							<option value="3">takeya</option>
+							<option value="4">takeya</option>
 						</select>
-						<textarea class="form-control" rows="2" placeholder="感想"></textarea>
 					</div>
 				</div>
 			</div>
 
 			<br>
-			<button type="submit" class="btn-lg btn-success">Submit</button>
+			<button type="submit" name="submit" class="btn-lg btn-success">Submit</button>
 		</form>
 	</div>
 
