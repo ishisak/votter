@@ -7,33 +7,41 @@
 	<% include body_header.ejs %>
 	
 	<div class="jumbotron">
-		<h1>〇〇の投票ページです</h1>
-		<p class="lead">２０１４年０２月０３日作成<p/>
-			２月の大阪しめかい用の投票ページ<p/>
+		<h1><%= event.eventName %></h1>
+		<p class="lead"><%= event.eventDetail %><p/>
 		</p>
 	</div>
 
 	<div class="container">
 
-		<form class="" role="form" action="/voted/1" method="post">
+		<form class="" role="form" action="/voted/<%= event._id %>" method="post">
 
 			<h2>投票フォーム</h2>
 			<hr>
 			<div class="form-group row">
+				<label for="quest1" class="col-xs-8 col-sm-2 control-label">名前</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control"  name="name" rows="3" placeholder="名前"></textarea>
+				</div>
+			</div>
+			<hr>
+			<div class="form-group row">
 				<label for="quest1" class="col-xs-8 col-sm-2 control-label">投票</label>
 				<div class="col-sm-8">
-						<select name="elect" class="form-control">
-							<option value="ans1">takashi</option>
-							<option value="ans2">takeshi</option>
-							<option value="ans3">takeya</option>
-						</select>
+					<select name="elect" class="form-control">
+						<% for(var i=0; i<event.candidates.length; i++) {%>
+						<option value="<%= event.candidates[i].candidateId %>">
+							<%= event.candidates[i].candidateName %> 〜 <%= event.candidates[i].reason %> 〜
+						</option>
+						<% } %> 
+					</select>
 				</div>
 			</div>
 			<hr>
 			<div class="form-group row">
 				<label for="quest3" class="col-xs-8 col-sm-2 control-label">コメント</label>
 				<div class="col-sm-8">
-						<textarea class="form-control"  name="comment" rows="3" placeholder="コメント"></textarea>
+					<textarea class="form-control"  name="comment" rows="3" placeholder="コメント"></textarea>
 				</div>
 			</div>
 

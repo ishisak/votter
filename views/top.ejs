@@ -14,73 +14,18 @@
 
 	<div class="container">
 		<h2>最近登録された投票場</h2>
+		<hr>
 		<!-- loopする -->
 		<% for(var i=0; i<events.length; i++) {%>
 		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <%= link_to(events[i].eventName, 'vote/'+supplies[i].eventId) %></div>
+			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="vote/<%= events[i]._id %>"><%= events[i].eventName %></a></div>
 			<div class="col-xs-12 col-xs-6 col-md-6"> <%= events[i].eventDetail %></div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <%= link_to('管理・集計', 'mng/'+supplies[i].eventId) %></div>
+			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="mng/<%= events[i]._id %>">管理・集計</a></div>
 		</div>
 		<hr>
 		<% } %>
 		<!-- //loopするここまで -->
 
-		<!-- あとで適当に消して -->
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 col-xs-4 col-md-2"> <a href="/vote/1" >投票場サンプル１リンク</a></div>
-			<div class="col-xs-12 col-xs-6 col-md-6"> 投票場サンプル１説明</div>
-			<div class="col-xs-6 col-xs-2 col-md-2"> <a href="/mng/1" >管理・集計</a></div>
-		</div>
-		<!-- //あとで適当に消してここまで -->
 	</div>
 
 	<% include body_footer.ejs %>

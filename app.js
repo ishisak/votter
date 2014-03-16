@@ -37,9 +37,9 @@ app.get('/', votter.top);
 app.get('/newform', votter.newform);
 app.post('/create', votter.create);
 app.get('/vote/:id', votter.vote);
-app.post('/voted/:id', votter.vote);
+app.post('/voted/:id', votter.voted);
 app.get('/mng/:id', votter.mng);
-app.get('/users', user.list);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

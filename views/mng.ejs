@@ -7,8 +7,8 @@
 	<% include body_header.ejs %>
 	
 	<div class="jumbotron">
-		<h1>集計・管理ページ</h1>
-		<p class="lead">〇〇の投票ページです<p/>
+		<h1><%= event.eventName %></h1>
+		<p class="lead"><%= event.eventDetail %><p/>
 		</p>
 	</div>
 
@@ -20,6 +20,18 @@
 			<hr>
 			<div class="form-group row">
 				<label for="quest1" class="col-xs-8 col-sm-2 control-label">一番発表が良かった人</label>
+
+				<div class="col-sm-8">
+				<% for(var i=0; i<event.candidates.length; i++) {%>
+				<%= event.candidates[i].candidateName %>
+					<% if(score[event.candidates[i].candidateId]) { %>
+					  <%= score[event.candidates[i].candidateId]%>
+					<% } %>
+					<br>
+				<% } %> 
+				</div>
+
+
 				<div class="col-sm-8">
 					<canvas id="quest1"></canvas>
 				</div>
@@ -28,38 +40,16 @@
 			<div class="form-group row">
 				<label for="quest3" class="col-xs-8 col-sm-2 control-label">感想</label>
 				<div class="col-xs-8 col-sm-8 ">
-					<!-- ループさせる -->
-					<div class="row">
-						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
-						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
-					</div>
 					<hr>
 					<!-- ループさせる -->
+					<% for(var i=0; i<vote.length; i++) {%>
 					<div class="row">
-						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
-						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
+						<div class="col-xs-12 col-xs-2 col-md-2"> <%= vote[i].userName%></div>
+						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> <%= vote[i].comment%></div>
 					</div>
 					<hr>
-					<div class="row">
-						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
-						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
-						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
-						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="col-xs-12 col-xs-2 col-md-2"> ばーしー</div>
-						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> 楽しかった</div>
-					</div>
-					<hr>
+					<% } %>
+					<!-- ループさせる -->
 				</div>
 			</div>
 
