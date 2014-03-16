@@ -7,6 +7,22 @@
   },
   "dependencies": {
     "express": "3.4.8",
-    "ejs": "*"
-  }
+    "ejs": "*",
+    "mongodb": "*",
+    "mongojs": "*"
+  },
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://daigorowhite@bitbucket.org/votter/votter.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "daigoro",
+  "license": "ISC"
 }
