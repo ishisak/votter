@@ -1,7 +1,7 @@
 
 module.exports = {
 
-    'mongoUri': 'mongodb://127.0.0.1:27017/vote?safe=true',
+    'mongoUri': process.env.MONGOLAB_URI,
     'dbOptions': {
 /*
 If you want any options, add option like the following.
