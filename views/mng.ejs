@@ -22,19 +22,26 @@
 				<label for="quest1" class="col-xs-8 col-sm-2 control-label">一番発表が良かった人</label>
 
 				<div class="col-sm-8">
-				<% for(var i=0; i<event.candidates.length; i++) {%>
-				<%= event.candidates[i].candidateName %>
-					<% if(score[event.candidates[i].candidateId]) { %>
-					  <%= score[event.candidates[i].candidateId]%>
-					<% } %>
+					<% for(var i=0; i<event.candidates.length; i++) {%>
+					<div class="row">
+						<div class="col-xs-12 col-xs-2 col-md-2"> 
+							<%= event.candidates[i].candidateName %>
+						</div>
+						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;">
+							<% if(score[event.candidates[i].candidateId]) { %>
+							<%= score[event.candidates[i].candidateId]%>
+							<% } else { %>
+							0
+							<% } %> 
+						</div>
+						<hr>
+					</div>
 					<br>
-				<% } %> 
-				</div>
+					<% } %> 
 
-
-				<div class="col-sm-8">
 					<canvas id="quest1"></canvas>
 				</div>
+
 			</div>
 			<hr>
 			<div class="form-group row">
@@ -44,7 +51,7 @@
 					<!-- ループさせる -->
 					<% for(var i=0; i<vote.length; i++) {%>
 					<div class="row">
-						<div class="col-xs-12 col-xs-2 col-md-2"> <%= vote[i].userName%></div>
+						<div class="col-xs-12 col-xs-2 col-md-2"><%= vote[i].userName%></div>
 						<div class="col-xs-12 col-xs-6 col-md-6" style="color:#;"> <%= vote[i].comment%></div>
 					</div>
 					<hr>
@@ -58,31 +65,36 @@
 	</div>
 
 	<!--  lazy load -->
-
 	<script>
 	var quest1 = {
 
 		"config": {
-			"title": "今月一番頑張った人",
-			"subTitle": "集計結果",
+			"title": "投票結果",
+			"subTitle": "集計なう",
 			"type": "bar",
-			"barWidth": 100,
+			"barWidth": 50,
 			"colorSet": 
 			["red","#FF9114","#3CB000"],
 			"bg":"#687478",
 		},
 
 		"data": [
-		["年度",1],
-		["java",3],
-		["ruby",10],
-		["go",2],
-		]
-	};
-	ccchart.init('quest1', quest1);
-	</script>
+		["スコア",1],
+		<% for(var i=0; i<event.candidates.length; i++) {%>
+			["<%= event.candidates[i].candidateName %>",
+			<% if(score[event.candidates[i].candidateId]) { %>
+				<%= score[event.candidates[i].candidateId]%>
+				<% } else { %>
+					0
+					<% } %> 
+					],
+					<% } %> 
+					]
+				};
+				ccchart.init('quest1', quest1);
+				</script>
 
-	<% include body_footer.ejs %>
+				<% include body_footer.ejs %>
 
-</body>
-</html>
+			</body>
+			</html>

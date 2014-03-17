@@ -28,19 +28,19 @@ exports.newform = function(req, res){
 exports.create = function(req, res){
   //insert data to table
   //validate 
-  if(req.param("password")){
-  }
-  if(req.param("password2")){
-  }
-  if(req.param("title")){
-  }
-  if(req.param("detail")){
-  }
-  if(req.param("contents")){
-  }
+  var isOkay = false;
+  if(req.param("password") 
+     || req.param("password").length > 6
+     || req.param("title")
+     || req.param("detail")
+     || req.param("contents")
+     || req.param("password") == req.param("password2")){
+    isOkay = true;
+   }
+
 
   var contents = req.param("contents").split(/\r\n|\r|\n/);
-  if(req.param("password") == req.param("password2")){
+  if(isOkay){
     var newEvent = new temp.EventTemplate();
     newEvent.eventName = req.param("title");
     newEvent.eventDetail = req.param("detail");
@@ -53,7 +53,6 @@ exports.create = function(req, res){
         "reason" : contents[i].split(",")[1],
       }
     }
-    console.log(newEvent);
     var Vote  = require(lib + 'votter');
     db = new Vote
     db.setEvent(newEvent,function(err, data){});
@@ -73,7 +72,7 @@ exports.vote = function(req, res){
   var Vote  = require(lib + 'votter');
   db = new Vote
   db.getEvent(vote_form_id,function(err, data){
-    res.render('vote', { title: 'votter - vote now' ,event:data});
+    res.render('vote', { title: 'votter - vote now' ,event:data, form:{}});
   });
   
   //TODO I don't know how to access DB lol
