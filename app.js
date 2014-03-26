@@ -38,7 +38,8 @@ app.get('/newform', votter.newform);
 app.post('/create', votter.create);
 app.get('/vote/:id', votter.vote);
 app.post('/voted/:id', votter.voted);
-app.get('/mng/:id', votter.mng);
+app.get('/result/:id', votter.result);
+app.post('/mng/:id', votter.mng);
 
 
 http.createServer(app).listen(app.get('port'), function(){
