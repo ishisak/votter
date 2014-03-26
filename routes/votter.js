@@ -34,17 +34,17 @@ exports.create = function(req, res){
   //validate 
   var isOkay = false;
   if(req.param("password") 
-   || req.param("password").length > 6
-   || req.param("title")
-   || req.param("detail")
-   || req.param("contents")
-   || req.param("password") == req.param("password2")){
+   && req.param("password").length >= 6
+   && req.param("title")
+   && req.param("detail")
+   && req.param("contents")
+   && req.param("password") == req.param("password2"))　{
     isOkay = true;
 }
 
 
-var contents = req.param("contents").split(/\r\n|\r|\n/);
 if(isOkay){
+  var contents = req.param("contents").split(/\r\n|\r|\n/);
   var newEvent = new temp.EventTemplate();
   newEvent.eventName = req.param("title");
   newEvent.eventDetail = req.param("detail");
@@ -53,7 +53,7 @@ if(isOkay){
   for(var i = 0; contents.length > i ; i++){
     newEvent.candidates[i] = {
       "candidateId" : i,
-      "candidateName" : contents[i].split(",")[0],
+      "candidateName" : contents[i],
       "reason" : contents[i].split(",")[1],
     }
   }
@@ -77,21 +77,24 @@ exports.vote = function(req, res){
     res.render('vote', { title: 'votter - vote now' ,event:data, form:{}});
   });
   
-  //TODO I don't know how to access DB lol
 };
 
 
 
 exports.voted = function(req, res){
   //get data from table
-  var ballot = new temp.BallotTemplate();
-  ballot.eventId = req.params.id;
-  ballot.userName = req.param("name");
-  ballot.candidateId = req.param("elect");
-  ballot.comment = req.param("comment");
+  if(req.param("name")){
+    var ballot = new temp.BallotTemplate();
+    ballot.eventId = req.params.id;
+    ballot.userName = req.param("name");
+    ballot.candidateId = req.param("elect");
+    ballot.comment = req.param("comment");
 
-  db.vote2Candidate(ballot,function(err, data){});
-  res.redirect('/');
+    db.vote2Candidate(ballot,function(err, data){});
+    res.redirect('/');
+  }else{
+    res.redirect('vote/' + req.params.id);
+  }
 };
 
 
@@ -124,12 +127,30 @@ exports.mng = function(req, res){
 
   db.getEvent(vote_form_id,function(err, event){
     if (event.password == util.sha256(req.param("password"))) {
+
       res.render('mng', 
         { title: 'votter - manage' ,
-        event:event
+        event:event ,
+        id_token: util.md5(req.params.id)
       });
     }else{
       res.redirect('/result/' + req.params.id);
     }
   });
+};
+
+
+
+exports.deleteall = function(req, res){
+  //get data from table
+  var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
+  var vote_id = {eventId:req.params.id};
+
+  if(util.md5(req.params.id) == req.params.id_token){
+    db.removeEvent(vote_id,function(err, vote){
+      res.redirect('/result/' + req.params.id);
+    });
+  }else{
+    res.redirect('/result/' + req.params.id);
+  }
 };
