@@ -7,7 +7,7 @@
 	<% include body_header.ejs %>
 	
 	<div class="jumbotron">
-		<h1><%= event.eventName %></h1>
+		<h1><%= event.eventName %>の管理ページ</h1>
 		<p class="lead"><%= event.eventDetail %><p/>
 		</p>
 	</div>
@@ -16,85 +16,24 @@
 
 		<section>
 
-			<h2>集計情報</h2>
+			<h2>オペレーション</h2>
 			<hr>
-			<div class="form-group row">
-				<label for="quest1" class="col-xs-8 col-sm-2 control-label">一番発表が良かった人</label>
+			<p class="row">
+				<a class="btn btn-lg btn-success" 
+				href="javascript:alertLink('/mng/deleteall/<%= event._id %>/<%= id_token %>','全投票を消しますか？');" role="button">
+				全投票を削除
+				</a>
+			</p>
 
-				<div class="col-sm-8">
-					<% for(var i=0; i<event.candidates.length; i++) {%>
-					<div class="row">
-						<div class="col-xs-12 col-sm-2 col-md-2"> 
-							<%= event.candidates[i].candidateName %>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-6" style="color:#;">
-							<% if(score[event.candidates[i].candidateId]) { %>
-							<%= score[event.candidates[i].candidateId]%>
-							<% } else { %>
-							0
-							<% } %> 
-						</div>
-						<hr>
-					</div>
-					<br>
-					<% } %> 
 
-					<canvas id="quest1"></canvas>
-				</div>
-
-			</div>
 			<hr>
-			<div class="form-group row">
-				<label for="quest3" class="col-xs-8 col-sm-2 control-label">感想</label>
-				<div class="col-xs-8 col-sm-8 ">
-					<hr>
-					<!-- ループさせる -->
-					<% for(var i=0; i<vote.length; i++) {%>
-					<div class="row">
-						<div class="col-xs-12 col-sm-2 col-md-2"><%= vote[i].userName%></div>
-						<div class="col-xs-12 col-sm-6 col-md-6" style="color:#;"> <%= vote[i].comment%></div>
-					</div>
-					<hr>
-					<% } %>
-					<!-- ループさせる -->
-				</div>
-			</div>
-
-			<br>
 		</section>
 	</div>
 
 	<!--  lazy load -->
-	<script>
-	var quest1 = {
 
-		"config": {
-			"title": "投票結果",
-			"subTitle": "集計なう",
-			"type": "bar",
-			"barWidth": 50,
-			"colorSet": 
-			["red","#FF9114","#3CB000"],
-			"bg":"#687478",
-		},
 
-		"data": [
-		["スコア",1],
-		<% for(var i=0; i<event.candidates.length; i++) {%>
-			["<%= event.candidates[i].candidateName %>",
-			<% if(score[event.candidates[i].candidateId]) { %>
-				<%= score[event.candidates[i].candidateId]%>
-				<% } else { %>
-					0
-					<% } %> 
-					],
-					<% } %> 
-					]
-				};
-				ccchart.init('quest1', quest1);
-				</script>
+	<% include body_footer.ejs %>
 
-				<% include body_footer.ejs %>
-
-			</body>
-			</html>
+</body>
+</html>

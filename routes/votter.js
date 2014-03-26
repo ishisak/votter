@@ -4,6 +4,12 @@ var temp = require('../lib/event');
 var votterDB = require('../lib/votter');
 var mongojs = require('mongojs');
 
+var Util = require(lib +'util');
+var util = new Util();
+
+var Vote  = require(lib + 'votter');
+var db = new Vote;
+
 /*
  * GET home page.
  */
@@ -11,8 +17,6 @@ var mongojs = require('mongojs');
  exports.top = function(req, res){
   //get top ** data from table
   //TODO I don't know how to access DB lol
-  var Vote  = require(lib + 'votter');
-  db = new Vote
   db.getEvents(function(err, events){
     res.render('top', 
       { title: 'votter',
@@ -30,36 +34,36 @@ exports.create = function(req, res){
   //validate 
   var isOkay = false;
   if(req.param("password") 
-     || req.param("password").length > 6
-     || req.param("title")
-     || req.param("detail")
-     || req.param("contents")
-     || req.param("password") == req.param("password2")){
+   && req.param("password").length >= 6
+   && req.param("title")
+   && req.param("detail")
+   && req.param("contents")
+   && req.param("password") == req.param("password2"))　{
     isOkay = true;
-   }
+}
 
 
+if(isOkay){
   var contents = req.param("contents").split(/\r\n|\r|\n/);
-  if(isOkay){
-    var newEvent = new temp.EventTemplate();
-    newEvent.eventName = req.param("title");
-    newEvent.eventDetail = req.param("detail");
-    newEvent.password = req.param("password");
-    newEvent.candidates = [];
-    for(var i = 0; contents.length > i ; i++){
-      newEvent.candidates[i] = {
-        "candidateId" : i,
-        "candidateName" : contents[i].split(",")[0],
-        "reason" : contents[i].split(",")[1],
-      }
+  var newEvent = new temp.EventTemplate();
+  newEvent.eventName = req.param("title");
+  newEvent.eventDetail = req.param("detail");
+  newEvent.password = util.sha256(req.param("password"));
+  newEvent.candidates = [];
+  for(var i = 0; contents.length > i ; i++){
+    newEvent.candidates[i] = {
+      "candidateId" : i,
+      "candidateName" : contents[i],
+      "reason" : contents[i].split(",")[1],
     }
-    var Vote  = require(lib + 'votter');
-    db = new Vote
-    db.setEvent(newEvent,function(err, data){});
-    res.redirect('/');
-  }else{
-    res.redirect('newform');
   }
+  var Vote  = require(lib + 'votter');
+  db = new Vote
+  db.setEvent(newEvent,function(err, data){});
+  res.redirect('/');
+}else{
+  res.redirect('newform');
+}
 };
 
 
@@ -69,49 +73,43 @@ exports.vote = function(req, res){
   //get data from table
   var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
 
-  var Vote  = require(lib + 'votter');
-  db = new Vote
   db.getEvent(vote_form_id,function(err, data){
     res.render('vote', { title: 'votter - vote now' ,event:data, form:{}});
   });
   
-  //TODO I don't know how to access DB lol
 };
 
 
 
 exports.voted = function(req, res){
   //get data from table
-  var ballot = new temp.BallotTemplate();
-  ballot.eventId = req.params.id;
-  ballot.userName = req.param("name");
-  ballot.candidateId = req.param("elect");
-  ballot.comment = req.param("comment");
+  if(req.param("name")){
+    var ballot = new temp.BallotTemplate();
+    ballot.eventId = req.params.id;
+    ballot.userName = req.param("name");
+    ballot.candidateId = req.param("elect");
+    ballot.comment = req.param("comment");
 
-  console.log(ballot)
-
-  var Vote  = require(lib + 'votter');
-  db = new Vote
-  db.vote2Candidate(ballot,function(err, data){});
-  res.redirect('/');
+    db.vote2Candidate(ballot,function(err, data){});
+    res.redirect('/');
+  }else{
+    res.redirect('vote/' + req.params.id);
+  }
 };
 
 
 
 
-exports.mng = function(req, res){
+exports.result = function(req, res){
   //get data from table
   var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
   var vote_id = {eventId:req.params.id};
 
-  var Vote  = require(lib + 'votter');
-  db = new Vote
   db.getEvent(vote_form_id,function(err, event){
     db.getVotes(vote_id,function(err, vote){
       db.sumUpCandidates(vote,function(err, score){
-        console.log(score)
-        res.render('mng', 
-          { title: 'votter - manage and satisfictions' ,
+        res.render('result', 
+          { title: 'votter - satisfictions' ,
           event:event,
           vote:vote,
           score:score
@@ -119,5 +117,40 @@ exports.mng = function(req, res){
       });
     });
   });
+};
 
+
+exports.mng = function(req, res){
+  //get data from table
+  var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
+  var vote_id = {eventId:req.params.id};
+
+  db.getEvent(vote_form_id,function(err, event){
+    if (event.password == util.sha256(req.param("password"))) {
+
+      res.render('mng', 
+        { title: 'votter - manage' ,
+        event:event ,
+        id_token: util.md5(req.params.id)
+      });
+    }else{
+      res.redirect('/result/' + req.params.id);
+    }
+  });
+};
+
+
+
+exports.deleteall = function(req, res){
+  //get data from table
+  var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
+  var vote_id = {eventId:req.params.id};
+
+  if(util.md5(req.params.id) == req.params.id_token){
+    db.removeEvent(vote_id,function(err, vote){
+      res.redirect('/result/' + req.params.id);
+    });
+  }else{
+    res.redirect('/result/' + req.params.id);
+  }
 };
