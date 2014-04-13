@@ -38,7 +38,7 @@ exports.create = function(req, res){
    && req.param("title")
    && req.param("detail")
    && req.param("contents")
-   && req.param("password") == req.param("password2"))　{
+   && req.param("password") == req.param("password2")){
     isOkay = true;
 }
 
@@ -54,7 +54,7 @@ if(isOkay){
     newEvent.candidates[i] = {
       "candidateId" : i,
       "candidateName" : contents[i],
-      "reason" : contents[i].split(",")[1],
+      "reason" : contents[i].split(",")[1]
     }
   }
   var Vote  = require(lib + 'votter');

@@ -5,43 +5,33 @@
 </head>
 <body ng-app="myApp">
 	<% include body_header.ejs %>
-
-
 	   <script>
-     function Ctrl($scope) {
-       $scope.user = {password: '', password2:'',title:'',contents:''};
-     }
+
    </script>
 	<div class="jumbotron">
 		<h1>新投票場作成フォーム</h1>
 		<p class="lead">新しく投票場を作る画面です。</p>
 	</div>
-                                <form name="myForm">
-                                        Password: <input ng-model="user.password" type="password" name="password" data-ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" />
-                                        Confirm: <input ng-model="user.passwordConfirm" type="password" data-match="user.password" name="confirmPassword" />
-                                        <div data-ng-show="myForm.confirmPassword.$error.match">Passwords do not match!</div>
-                                    </form>
-	<div class="container" ng-controller="Ctrl">
+	<div class="container">
 
 		<form class="" role="form" name="eventInfo" action="/create" method="post">
 
 			<h2>管理用の情報を入力ください</h2>
 			<hr>
 			<div class="form-group row">
-				<label for="password" class="col-xs-8 col-sm-2 control-label">パスワード(6文字以上)</label>
-				<div class="col-sm-3">
-					<input type="password" name="password" placeholder="Password" ng-model="user.password" data-ng-class="{'ng-invalid':eventInfo.password2.$error.match}" class="form-control ng-vaild-minlength" ng-minlength="6" required>
+				<label for="password" class="col-xs-8 col-sm-2 control-label">パスワード</label>
+				<div class="col-sm-3 ">
+					<input type="password" name="password" placeholder="Password" ng-model="password" class="form-control" ng-minlength="6" required>
 				</div>
-				<span class="error" ng-show="eventInfo.password.$error.minlength">6moji ijou desu</span>
+				<span class="error" ng-show="eventInfo.password.$error.minlength">6文字以上必要です</span>
 
 			</div>
 			<div class="form-group row">
 				<label for="password2" class="col-xs-8 col-sm-2 control-label">もう一度</label>
 				<div class="col-sm-3">
-					<input type="password" name="password2" ng-model="user.password2" placeholder="again" class="form-control" data-match="user.password">
+					<input type="password" name="password2" ng-model="password2" placeholder="again" class="form-control" required match={{password}}>
 				</div>
-				<div class="error" data-ng-show="eventInfo.password2.$error.match"> oooooooooooo</div>
-
+				<span class="error" ng-show="eventInfo.password2.$error.match">パスワードが一致しません</span>
 			</div>
 
 			
@@ -50,7 +40,7 @@
 			<div class="form-group row">
 				<label for="title" class="col-xs-8 col-sm-2 control-label">*タイトル</label>
 				<div class="col-sm-8">
-					<input type="text" name="title" placeholder="ex. ３月のアンケート" class="form-control " required>
+					<input type="text"ng-model="title"  name="title" placeholder="ex. ３月のアンケート" class="form-control" required>
 				</div>
 			</div>
 			<br>
@@ -58,7 +48,7 @@
 			<div class="row"> 
 				<label for="explain" class="col-xs-8 col-sm-2 control-label">*詳細</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" name="detail" rows="2" placeholder="詳細"></textarea>
+					<textarea class="form-control" ng-model="detail" name="detail" rows="2" placeholder="詳細" required></textarea>
 				</div>
 			</div>
 			<br>
@@ -67,7 +57,7 @@
 			<div class="form-group row">
 				<label for="contents" class="col-xs-8 col-sm-2 control-label">*コンテンツ</label>
 				<div class="col-sm-8 ">
-					<textarea class="form-control" name="contents" rows="3" placeholder="投票コンテンツの作成"></textarea>
+					<textarea class="form-control" ng-model="content" name="contents" rows="3" placeholder="投票コンテンツの作成" required></textarea>
 				</div>
 			</div>
 
@@ -95,7 +85,7 @@
 			</div>
 
 			<br>
-			<button type="submit" name="submit" class="btn-lg btn-success" ng-disabled="eventInfo.$invalid">Submit</button>
+			<button type="submit" name="submit" class="btn-lg btn-success" ng-disabled="eventInfo.$invalid" disabled="disabled">登録</button>
 			<span ng-show="eventInfo.$invalid" class="comment">未入力の項目や正しく入力できていない項目があります</span>
 		</form>
 	</div>
