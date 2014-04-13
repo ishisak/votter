@@ -42,6 +42,8 @@ app.post('/voted/:id', votter.voted);
 app.get('/result/:id', votter.result);
 app.post('/mng/:id', votter.mng);
 app.get('/mng/deleteall/:id/:id_token', votter.deleteall);
+app.get('/mng/openEvent/:id/:id_token', votter.openEvent);
+app.get('/mng/closeEvent/:id/:id_token', votter.closeEvent);
 
 
 http.createServer(app).listen(app.get('port'), function(){

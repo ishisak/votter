@@ -10,6 +10,14 @@
 		<h1><%= event.eventName %>の管理ページ</h1>
 		<p class="lead"><%= event.eventDetail %><p/>
 		</p>
+		<hr>
+		<p><strong>
+			<% if(! event.status || event.status == "open"){ %>
+			[ 投票受付中 ]
+			<% } else { %>
+			[ 投票中止中 ]
+			<% } %>
+		</strong></p>
 	</div>
 
 	<div class="container">
@@ -18,22 +26,41 @@
 
 			<h2>オペレーション</h2>
 			<hr>
-			<p class="row">
+
+			<h3>投票操作系</h3>
+			<hr>
+			<p class="row" style="margin:0 auto 50px auto;" >
 				<a class="btn btn-lg btn-success" 
 				href="javascript:alertLink('/mng/deleteall/<%= event._id %>/<%= id_token %>','全投票を消しますか？');" role="button">
 				全投票を削除
-				</a>
-			</p>
+			</a>
+		</p>
 
 
-			<hr>
-		</section>
-	</div>
+		<h3>投票再開・中止</h3>
+		<hr>
+		<p class="row" style="margin:0 auto 50px auto;" >
+			<a class="btn btn-lg btn-success" 
+			href="javascript:alertLink('/mng/openEvent/<%= event._id %>/<%= id_token %>','投票を開始しますか？');" role="button">
+			投票受付開始
+		</a>
 
-	<!--  lazy load -->
+		<a class="btn btn-lg btn-success" 
+		href="javascript:alertLink('/mng/closeEvent/<%= event._id %>/<%= id_token %>','投票を受付終了しますか？');" role="button">
+		投票受付中止
+	</a>
+
+</p>
 
 
-	<% include body_footer.ejs %>
+<hr>
+</section>
+</div>
+
+<!--  lazy load -->
+
+
+<% include body_footer.ejs %>
 
 </body>
 </html>

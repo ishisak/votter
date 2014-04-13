@@ -49,6 +49,7 @@ if(isOkay){
   newEvent.eventName = req.param("title");
   newEvent.eventDetail = req.param("detail");
   newEvent.password = util.sha256(req.param("password"));
+  newevent.status = "open";
   newEvent.candidates = [];
   for(var i = 0; contents.length > i ; i++){
     newEvent.candidates[i] = {
@@ -83,21 +84,23 @@ exports.vote = function(req, res){
 
 exports.voted = function(req, res){
   //get data from table
-  if(req.param("name") &&
-     ! req.cookies[req.params.id]){
-    var ballot = new temp.BallotTemplate();
-    ballot.eventId = req.params.id;
-    ballot.userName = req.param("name");
-    ballot.candidateId = req.param("elect");
-    ballot.comment = req.param("comment");
+  var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
+  db.getEvent(vote_form_id,function(err, data){
+    var opened = (! data.status || data.status == "open");
+    if(opened && req.param("name") && ! req.cookies[req.params.id){
+      var ballot = new temp.BallotTemplate();
+      ballot.eventId = req.params.id;
+      ballot.userName = req.param("name");
+      ballot.candidateId = req.param("elect");
+      ballot.comment = req.param("comment");
 
-    db.vote2Candidate(ballot,function(err, data){});
-
-    res.cookie(req.params.id, Date.now(),{ maxAge: 86400000, httpOnly: true });
-    res.redirect('/');
-  }else{
-    res.redirect('vote/' + req.params.id);
-  }
+      db.vote2Candidate(ballot,function(err, data){});
+      res.cookie(req.params.id, Date.now(),{ maxAge: 86400000, httpOnly: true });
+      res.redirect('/');
+    }else{
+      res.redirect('vote/' + req.params.id);
+    }
+  });
 };
 
 
@@ -143,7 +146,6 @@ exports.mng = function(req, res){
 };
 
 
-
 exports.deleteall = function(req, res){
   //get data from table
   var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
@@ -156,4 +158,26 @@ exports.deleteall = function(req, res){
   }else{
     res.redirect('/result/' + req.params.id);
   }
+};
+
+exports.openEvent = function(req, res){
+  var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
+  db.getEvent(vote_form_id,function(err, event){
+    event.status = "open";
+    console.log(event);
+    db.updateEvent(event,function(err,event){
+      res.redirect('/result/' + req.params.id);
+    });
+  });
+};
+
+
+exports.closeEvent = function(req, res){
+  var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
+  db.getEvent(vote_form_id,function(err, event){
+    event.status = "false";
+    db.updateEvent(event,function(err,event){
+      res.redirect('/result/' + req.params.id);
+    });
+  });
 };
