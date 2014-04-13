@@ -83,7 +83,8 @@ exports.vote = function(req, res){
 
 exports.voted = function(req, res){
   //get data from table
-  if(req.param("name")){
+  if(req.param("name") &&
+     ! req.cookies[req.params.id]){
     var ballot = new temp.BallotTemplate();
     ballot.eventId = req.params.id;
     ballot.userName = req.param("name");
@@ -91,6 +92,8 @@ exports.voted = function(req, res){
     ballot.comment = req.param("comment");
 
     db.vote2Candidate(ballot,function(err, data){});
+
+    res.cookie(req.params.id, Date.now(),{ maxAge: 86400000, httpOnly: true });
     res.redirect('/');
   }else{
     res.redirect('vote/' + req.params.id);
