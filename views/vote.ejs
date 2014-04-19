@@ -3,7 +3,7 @@
 <head>
 	<% include html_header.ejs %>
 </head>
-<body>
+<body ng-app="">
 	<% include body_header.ejs %>
 	
 	<div class="jumbotron">
@@ -14,14 +14,14 @@
 
 	<div class="container">
 
-		<form class="" role="form" action="/voted/<%= event._id %>" method="post">
+		<form class="" name='voteSomeone' role="form" action="/voted/<%= event._id %>" method="post">
 
 			<h2>投票フォーム</h2>
 			<hr>
 			<div class="form-group row">
 				<label for="quest1" class="col-xs-8 col-sm-2 control-label">名前</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control"  name="name" rows="3" placeholder="名前"></textarea>
+					<input type="text" class="form-control" ng-model="name" name="name" rows="3" placeholder="名前" required></textarea>
 				</div>
 			</div>
 			<hr>
@@ -41,12 +41,13 @@
 			<div class="form-group row">
 				<label for="quest3" class="col-xs-8 col-sm-2 control-label">コメント</label>
 				<div class="col-sm-8">
-					<textarea class="form-control"  name="comment" rows="3" placeholder="コメント"></textarea>
+					<textarea  ng-model="comment" class="form-control"  name="comment" rows="3" placeholder="コメント" required></textarea>
 				</div>
 			</div>
 
 			<br>
-			<button type="submit" class="btn-lg btn-success">Submit</button>
+			<button type="submit" class="btn-lg btn-success" ng-disabled="voteSomeone.$invalid" disabled="disabled">Submit</button>
+			<span ng-show="voteSomeone.$invalid" class="comment">未入力の項目や正しく入力できていない項目があります</span>
 		</form>
 	</div>
 
