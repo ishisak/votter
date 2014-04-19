@@ -21,6 +21,7 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -41,6 +42,8 @@ app.post('/voted/:id', votter.voted);
 app.get('/result/:id', votter.result);
 app.post('/mng/:id', votter.mng);
 app.get('/mng/deleteall/:id/:id_token', votter.deleteall);
+app.get('/mng/openEvent/:id/:id_token', votter.openEvent);
+app.get('/mng/closeEvent/:id/:id_token', votter.closeEvent);
 
 
 http.createServer(app).listen(app.get('port'), function(){
