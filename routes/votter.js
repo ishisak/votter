@@ -87,7 +87,7 @@ exports.voted = function(req, res){
   var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
   db.getEvent(vote_form_id,function(err, data){
     var opened = (! data.status || data.status == "open");
-    if(opened && req.param("name") && ! req.cookies[req.params.id){
+    if(opened && req.param("name") && ! req.cookies[req.params.id]){
       var ballot = new temp.BallotTemplate();
       ballot.eventId = req.params.id;
       ballot.userName = req.param("name");
