@@ -21,7 +21,7 @@
 			<div class="form-group row">
 				<label for="quest1" class="col-xs-8 col-sm-2 control-label">名前</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" ng-model="name" name="name" rows="3" placeholder="名前" required></textarea>
+					<input type="text" class="form-control" ng-model="name" name="name" rows="3" placeholder="名前" required></input>
 				</div>
 			</div>
 			<hr>
@@ -41,13 +41,13 @@
 			<div class="form-group row">
 				<label for="quest3" class="col-xs-8 col-sm-2 control-label">コメント</label>
 				<div class="col-sm-8">
-					<textarea  ng-model="comment" class="form-control"  name="comment" rows="3" placeholder="コメント" required></textarea>
+					<textarea  ng-model="comment" class="form-control"  name="comment" rows="3" placeholder="コメント"></textarea>
 				</div>
 			</div>
 
 			<br>
 			<button type="submit" class="btn-lg btn-success" ng-disabled="voteSomeone.$invalid" disabled="disabled">Submit</button>
-			<span ng-show="voteSomeone.$invalid" class="comment">未入力の項目や正しく入力できていない項目があります</span>
+			<span ng-show="voteSomeone.$invalid" class="comment" style="color:red;">未入力の項目や正しく入力できていない項目があります</span>
 		</form>
 	</div>
 

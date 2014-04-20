@@ -29,7 +29,7 @@
 			<div class="form-group row">
 				<label for="password2" class="col-xs-8 col-sm-2 control-label">もう一度</label>
 				<div class="col-sm-3">
-					<input type="password" name="password2" ng-model="password2" placeholder="again" class="form-control" required match={{password}}>
+					<input type="password" name="password2" ng-model="password2" placeholder="again" class="form-control"  match={{password}}>
 				</div>
 				<span class="error" ng-show="eventInfo.password2.$error.match">パスワードが一致しません</span>
 			</div>
@@ -40,7 +40,7 @@
 			<div class="form-group row">
 				<label for="title" class="col-xs-8 col-sm-2 control-label">*タイトル</label>
 				<div class="col-sm-8">
-					<input type="text"ng-model="title"  name="title" placeholder="ex. ３月のアンケート" class="form-control" required>
+					<input type="text" ng-model="title"  name="title" placeholder="ex. ３月のアンケート" class="form-control" required>
 				</div>
 			</div>
 			<br>
@@ -57,7 +57,7 @@
 			<div class="form-group row">
 				<label for="contents" class="col-xs-8 col-sm-2 control-label">*コンテンツ</label>
 				<div class="col-sm-8 ">
-					<textarea class="form-control" ng-model="content" name="contents" rows="3" placeholder="投票コンテンツの作成" required></textarea>
+					<textarea class="form-control" ng-model="contents" name="contents" rows="3" placeholder="投票コンテンツの作成" required></textarea>
 				</div>
 			</div>
 
@@ -86,7 +86,7 @@
 
 			<br>
 			<button type="submit" name="submit" class="btn-lg btn-success" ng-disabled="eventInfo.$invalid" disabled="disabled">登録</button>
-			<span ng-show="eventInfo.$invalid" class="comment">未入力の項目や正しく入力できていない項目があります</span>
+			<span ng-show="eventInfo.$invalid" class="comment" style="color:red;">未入力の項目や正しく入力できていない項目があります</span>
 		</form>
 	</div>
 	<% include body_footer.ejs %>
