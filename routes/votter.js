@@ -49,7 +49,7 @@ if(isOkay){
   newEvent.eventName = req.param("title");
   newEvent.eventDetail = req.param("detail");
   newEvent.password = util.sha256(req.param("password"));
-  newevent.status = "open";
+  newEvent.status = "open";
   newEvent.candidates = [];
   for(var i = 0; contents.length > i ; i++){
     newEvent.candidates[i] = {
