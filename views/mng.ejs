@@ -51,24 +51,24 @@
       </p>
 
 	    <h3>投票結果の公開/非公開設定</h3>
-	                     	            現在<% if(event.veilFlg){ %>非<% } %>公開中
+	                     	            現在<% if(!event.publicStatus){ %>非<% } %>公開中
 
 	    <hr>
                  <p class="row" style="margin:0 auto 50px auto;" >
-      		    <% if(Boolean(event.veilFlg)) { %>
-
+      		    <% if(event.publicStatus) { %>
                     <a class="btn btn-lg btn-success"
-                       href="javascript:alertLink('/mng/updVeilStatus/<%= event._id %>/public','投票結果を公開しますか？');" role="button">
-                       公開する
+                       href="javascript:alertLink('/mng/updPrivateStatus/<%= event._id %>/veil','投票結果を非公開にしますか？');" role="button">
+                       非公開にする
                     </a>
               <% } else { %>
                     <a class="btn btn-lg btn-success"
-                       href="javascript:alertLink('/mng/updVeilStatus/<%= event._id %>/veil','投票結果を非公開にしますか？');" role="button">
-                       非公開にする
+                       href="javascript:alertLink('/mng/updPrivateStatus/<%= event._id %>/public','投票結果を公開しますか？');" role="button">
+                       公開する
                     </a>
               <% } %>
 
                  </p>
+
 
 </section>
 </div>

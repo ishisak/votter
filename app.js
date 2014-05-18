@@ -44,7 +44,7 @@ app.post('/mng/:id', votter.mng);
 app.get('/mng/deleteall/:id/:id_token', votter.deleteall);
 app.get('/mng/openEvent/:id/:id_token', votter.openEvent);
 app.get('/mng/closeEvent/:id/:id_token', votter.closeEvent);
-app.get('/mng/updVeilStatus/:id/:status', votter.updVeilStatus);
+app.get('/mng/updPrivateStatus/:id/:status', votter.updPrivateStatus);
 
 
 

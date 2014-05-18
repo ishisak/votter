@@ -181,13 +181,13 @@ exports.closeEvent = function(req, res){
   });
 };
 
-exports.updVeilStatus = function(req, res){
+exports.updPrivateStatus = function(req, res){
     var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
     db.getEvent(vote_form_id,function(err, event){
-        if(req.params.status === "veil") {
-            event.veilFlg = true;
+        if(req.params.status === "public") {
+            event.publicStatus = true;
         } else {
-            event.veilFlg = false;
+            event.publicStatus = false;
         }
 
         db.updateEvent(event,function(err,event){
