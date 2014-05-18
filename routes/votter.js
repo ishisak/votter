@@ -50,6 +50,7 @@ if(isOkay){
   newEvent.eventDetail = req.param("detail");
   newEvent.password = util.sha256(req.param("password"));
   newEvent.status = "open";
+  newEvent.veilFlg = false;
   newEvent.candidates = [];
   for(var i = 0; contents.length > i ; i++){
     newEvent.candidates[i] = {
@@ -164,13 +165,11 @@ exports.openEvent = function(req, res){
   var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
   db.getEvent(vote_form_id,function(err, event){
     event.status = "open";
-    console.log(event);
     db.updateEvent(event,function(err,event){
       res.redirect('/result/' + req.params.id);
     });
   });
 };
-
 
 exports.closeEvent = function(req, res){
   var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
@@ -180,4 +179,19 @@ exports.closeEvent = function(req, res){
       res.redirect('/result/' + req.params.id);
     });
   });
+};
+
+exports.updVeilStatus = function(req, res){
+    var vote_form_id = {_id:mongojs.ObjectId(req.params.id)};
+    db.getEvent(vote_form_id,function(err, event){
+        if(req.params.status === "veil") {
+            event.veilFlg = true;
+        } else {
+            event.veilFlg = false;
+        }
+
+        db.updateEvent(event,function(err,event){
+            res.redirect('/result/' + req.params.id);
+        });
+    });
 };

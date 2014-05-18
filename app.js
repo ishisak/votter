@@ -44,6 +44,8 @@ app.post('/mng/:id', votter.mng);
 app.get('/mng/deleteall/:id/:id_token', votter.deleteall);
 app.get('/mng/openEvent/:id/:id_token', votter.openEvent);
 app.get('/mng/closeEvent/:id/:id_token', votter.closeEvent);
+app.get('/mng/updVeilStatus/:id/:status', votter.updVeilStatus);
+
 
 
 http.createServer(app).listen(app.get('port'), function(){
