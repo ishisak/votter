@@ -25,7 +25,6 @@
 		<section>
 
 			<h2>オペレーション</h2>
-			<hr>
 
 			<h3>投票操作系</h3>
 			<hr>
@@ -33,27 +32,44 @@
 				<a class="btn btn-lg btn-success" 
 				href="javascript:alertLink('/mng/deleteall/<%= event._id %>/<%= id_token %>','全投票を消しますか？');" role="button">
 				全投票を削除
-			</a>
-		</p>
+			  </a>
+		  </p>
 
 
-		<h3>投票再開・中止</h3>
-		<hr>
-		<p class="row" style="margin:0 auto 50px auto;" >
-			<a class="btn btn-lg btn-success" 
-			href="javascript:alertLink('/mng/openEvent/<%= event._id %>/<%= id_token %>','投票を開始しますか？');" role="button">
-			投票受付開始
-		</a>
+		  <h3>投票再開・中止</h3>
+		  <hr>
+		  <p class="row" style="margin:0 auto 50px auto;" >
+			  <a class="btn btn-lg btn-success"
+			  href="javascript:alertLink('/mng/openEvent/<%= event._id %>/<%= id_token %>','投票を開始しますか？');" role="button">
+			  投票受付開始
+		    </a>
 
-		<a class="btn btn-lg btn-success" 
-		href="javascript:alertLink('/mng/closeEvent/<%= event._id %>/<%= id_token %>','投票を受付終了しますか？');" role="button">
-		投票受付中止
-	</a>
+		    <a class="btn btn-lg btn-success"
+		    href="javascript:alertLink('/mng/closeEvent/<%= event._id %>/<%= id_token %>','投票を受付終了しますか？');" role="button">
+		    投票受付中止
+	      </a>
+      </p>
 
-</p>
+	    <h3>投票結果の公開/非公開設定</h3>
+	                     	            現在<% if(!event.publicStatus){ %>非<% } %>公開中
+
+	    <hr>
+                 <p class="row" style="margin:0 auto 50px auto;" >
+      		    <% if(event.publicStatus) { %>
+                    <a class="btn btn-lg btn-success"
+                       href="javascript:alertLink('/mng/updPrivateStatus/<%= event._id %>/veil','投票結果を非公開にしますか？');" role="button">
+                       非公開にする
+                    </a>
+              <% } else { %>
+                    <a class="btn btn-lg btn-success"
+                       href="javascript:alertLink('/mng/updPrivateStatus/<%= event._id %>/public','投票結果を公開しますか？');" role="button">
+                       公開する
+                    </a>
+              <% } %>
+
+                 </p>
 
 
-<hr>
 </section>
 </div>
 
