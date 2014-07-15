@@ -39,6 +39,7 @@ app.get('/newform', votter.newform);
 app.post('/create', votter.create);
 app.get('/vote/:id', votter.vote);
 app.post('/voted/:id', votter.voted);
+app.get('/hadVoted', votter.hadVoted);
 app.get('/result/:id', votter.result);
 app.post('/mng/:id', votter.mng);
 app.get('/mng/deleteall/:id/:id_token', votter.deleteall);

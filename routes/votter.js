@@ -97,12 +97,16 @@ exports.voted = function(req, res){
 
       db.vote2Candidate(ballot,function(err, data){});
       res.cookie(req.params.id, Date.now(),{ maxAge: 86400000, httpOnly: true });
-      res.redirect('/');
+      res.redirect('/hadVoted');
     }else{
       res.redirect('vote/' + req.params.id);
     }
   });
 };
+
+exports.hadVoted = function(req, res){
+    res.render('voted', { title: 'votter' });
+}
 
 
 
