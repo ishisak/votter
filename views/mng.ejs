@@ -33,48 +33,112 @@
 				href="javascript:alertLink('/mng/deleteall/<%= event._id %>/<%= id_token %>','全投票を消しますか？');" role="button">
 				全投票を削除
 			  </a>
-		  </p>
+		    </p>
 
 
-		  <h3>投票再開・中止</h3>
-		  <hr>
-		  <p class="row" style="margin:0 auto 50px auto;" >
-			  <a class="btn btn-lg btn-success"
+		  	<h3>投票再開・中止</h3>
+			<hr>
+			<p class="row" style="margin:0 auto 50px auto;" >
+				<a class="btn btn-lg btn-success"
 			  href="javascript:alertLink('/mng/openEvent/<%= event._id %>/<%= id_token %>','投票を開始しますか？');" role="button">
-			  投票受付開始
-		    </a>
+				投票受付開始
+		    	</a>
 
-		    <a class="btn btn-lg btn-success"
-		    href="javascript:alertLink('/mng/closeEvent/<%= event._id %>/<%= id_token %>','投票を受付終了しますか？');" role="button">
-		    投票受付中止
-	      </a>
-      </p>
+			    <a class="btn btn-lg btn-success"
+			    href="javascript:alertLink('/mng/closeEvent/<%= event._id %>/<%= id_token %>','投票を受付終了しますか？');" role="button">
+			    投票受付中止
+		      	</a>
+     		</p>
 
-	    <h3>投票結果の公開/非公開設定</h3>
-	                     	            現在<% if(!event.publicStatus){ %>非<% } %>公開中
+		    <h3>投票結果の公開/非公開設定</h3>
+	        <h4>現在<% if(!event.publicStatus){ %>非<% } %>公開中</h4>
 
-	    <hr>
-                 <p class="row" style="margin:0 auto 50px auto;" >
-      		    <% if(event.publicStatus) { %>
-                    <a class="btn btn-lg btn-success"
-                       href="javascript:alertLink('/mng/updPrivateStatus/<%= event._id %>/veil','投票結果を非公開にしますか？');" role="button">
-                       非公開にする
-                    </a>
-              <% } else { %>
-                    <a class="btn btn-lg btn-success"
-                       href="javascript:alertLink('/mng/updPrivateStatus/<%= event._id %>/public','投票結果を公開しますか？');" role="button">
-                       公開する
-                    </a>
-              <% } %>
+		    <hr>
+	        <p class="row" style="margin:0 auto 50px auto;" >
+			    <% if(event.publicStatus) { %>
+	            <a class="btn btn-lg btn-success"
+	               href="javascript:alertLink('/mng/updPrivateStatus/<%= event._id %>/veil','投票結果を非公開にしますか？');" role="button">
+	               非公開にする
+	            </a>
+	        <% } else { %>
+	            <a class="btn btn-lg btn-success"
+	               href="javascript:alertLink('/mng/updPrivateStatus/<%= event._id %>/public','投票結果を公開しますか？');" role="button">
+	               公開する
+	            </a>
+	        <% } %>
+	        </p>
 
-                 </p>
+			<h2>現在の投票結果の確認</h2>
+			<h3>集計結果</h3>
+		    <hr>
+    			<div class="form-group row">
+				<div class="col-sm-8">
+					<div id="chart_div" style="width: 900px; height: 700px;"></div>
+					<hr>
+				</div>
+				</div>
+			<h3>全投票詳細</h3>
+		    <hr>
+		    <div class="form-group row">
+				<div class="col-xs-8 col-sm-8 ">
+					<hr>
+					<!-- ループさせる -->
+					<% for(var i=0; i<vote.length; i++) {%>
+					<div class="row">
+						<div class="col-xs-12">name : <%= vote[i].userName%></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">投票 : <%= candidateMap[vote[i].candidateId].candidateName %></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">コメント : <%= vote[i].comment%></div>
+					</div>
+					<hr>
+					<% } %>
+					<!-- ループさせる -->
+				</div>
+			</div>
 
-
-</section>
+	</section>
 </div>
 
-<!--  lazy load -->
+	<!--  lazy load -->
 
+	<script>
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+			['名前', 'スコア'],
+			<% for(var i=0; i<event.candidates.length; i++) {%>
+				["<%= event.candidates[i].candidateName %>",
+				<% if(score[event.candidates[i].candidateId]) { %>
+					<%= score[event.candidates[i].candidateId]%>
+					<% } else { %>
+						0
+						<% } %> 
+						],
+						<% } %> 
+						]);
+
+		var view = new google.visualization.DataView(data);
+		view.setColumns([0, 1,
+			{ calc: "stringify",
+			sourceColumn: 1,
+			type: "string",
+			role: "annotation" }
+			]);
+
+		var options = {
+			title: '投票結果',
+			vAxis: {title: '', titleTextStyle: {color: 'red'}},
+			hAxis: {ticks: [10,20,30,40], format:'###'}
+		};
+
+		var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+		chart.draw(view, options);
+	}
+	</script>
 
 <% include body_footer.ejs %>
 

@@ -138,16 +138,30 @@ exports.mng = function(req, res){
 
   db.getEvent(vote_form_id,function(err, event){
     if (event.password == util.sha256(req.param("password"))) {
+      db.getVotes(vote_id,function(err, vote){
+        db.sumUpCandidates(vote,function(err, score){
+            // make map for candidate id to name in EJS.
+            candidates = event.candidates;
+            candidateMap = {};
+            for (var i = 0, length = candidates.length; i < length; i++) {
+              var c = candidates[i];
+              candidateMap[c.candidateId] = c;
+            }
 
-      res.render('mng', 
-        { title: 'votter - manage' ,
-        event:event ,
-        id_token: util.md5(req.params.id)
-      });
-    }else{
-      res.redirect('/result/' + req.params.id);
-    }
-  });
+          res.render('mng',
+            { title: 'votter - manage' ,
+            event:event ,
+            vote:vote,
+            score:score,
+            candidateMap:candidateMap,
+            id_token: util.md5(req.params.id)
+          });
+        });
+      });}
+      else{
+        res.redirect('/result/' + req.params.id);
+      }
+    });
 };
 
 
