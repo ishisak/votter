@@ -1,7 +1,7 @@
 
 module.exports = {
 
-    'mongoUri': 'mongodb://votter:rakuten@ds031417.mongolab.com:31417/heroku_app23080744',
+    'mongoUri': 'mongodb://127.0.0.1:27017/vote?safe=true',
     'dbOptions': {
 /*
 If you want any options, add option like the following.
